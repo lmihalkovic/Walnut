@@ -11,3 +11,7 @@ bin-int/
 
 # Exclude
 !vendor/bin
+build/
+
+.DS_Store
+cmake-build-debug/

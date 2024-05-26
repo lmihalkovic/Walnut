@@ -56,11 +56,31 @@ private:
 	bool m_AboutModalOpen = false;
 };
 
-Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
+Walnut::Application* Walnut::CreateApplication(int argc, char** argv, char** envp)
 {
+    // Check the environment
+    if (argc > 1) {
+        std::string arg = argv[1];
+
+        if (arg == "-env") {
+            //        std::vector< std::string > args( argv, argv + argc );
+            std::vector<std::string_view> envs;
+            for (int i = 0; envp[i] != 0; i++) {
+                std::string_view var{envp[i]};
+                envs.push_back(var);
+            }
+            
+            std::sort(envs.begin(), envs.end());
+            std::for_each(envs.begin(), envs.end(), [](auto str) {
+                std::cout << str << std::endl;
+            });
+        }
+    }
+
+    // Configure the application
 	Walnut::ApplicationSpecification spec;
-	spec.Name = "Walnut Example";
-	spec.CustomTitlebar = true;
+	spec.Name = "Test App";
+	spec.CustomTitlebar = false;
 
 	Walnut::Application* app = new Walnut::Application(spec);
 	std::shared_ptr<ExampleLayer> exampleLayer = std::make_shared<ExampleLayer>();

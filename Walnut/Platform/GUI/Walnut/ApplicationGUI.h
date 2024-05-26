@@ -119,5 +119,5 @@ namespace Walnut {
 	};
 
 	// Implemented by CLIENT
-	Application* CreateApplication(int argc, char** argv);
+	Application* CreateApplication(int argc, char** argv, char** envp);
 }
